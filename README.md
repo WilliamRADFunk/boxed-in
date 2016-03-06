@@ -12,7 +12,7 @@ Get acclimated to working with Unity for a team project.<br/><br/>
 This is practice for the larger, VEDIC program, to be done by the same collaborators.<br/><br/>
 
 ###Important Area of Focus
--- Design with UML & sequence diagrams.<br/><br/>
+-- Design with UML & sequence diagrams.
 
 -- Automated graph generation
 
