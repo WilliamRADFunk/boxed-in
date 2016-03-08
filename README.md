@@ -23,3 +23,6 @@ This is practice for the larger, VEDIC program, to be done by the same collabora
 -- Combining Visual Studios and Unity
 
 -- Combining Visual Studios and Github
+
+###Test commit from visual studios
+-- Jorge Rodriugez successfully commited and pushed README to Master
