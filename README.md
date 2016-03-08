@@ -26,3 +26,4 @@ This is practice for the larger, VEDIC program, to be done by the same collabora
 
 ###Test commit from visual studios
 -- Jorge Rodriugez successfully commited and pushed README to Master
+-- Jorge Rodriguez additional comments in tempJ repo
