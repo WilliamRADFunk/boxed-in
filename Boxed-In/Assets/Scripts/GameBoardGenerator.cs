@@ -28,7 +28,9 @@ public class GameBoardGenerator : MonoBehaviour {
                     go.name = "node";
                     Node n = go.GetComponent<Node>();
                     nodes.Add(n);
-                    if(i == (int)(boardSize / 2) -1 || j == (int)(boardSize / 2) - 1) { }
+                    if( i == (int)(boardSize / 2) - 1 || 
+                        j == (int)(boardSize / 2) - 1 ||
+                        k == (int)(boardSize / 2) - 1) { }
                     else {
                         GameObject bb = (GameObject)Instantiate(test, new Vector3(i * space + space / 2, j * space + space / 2, k * space + space / 2), Quaternion.identity);
                         bb.transform.SetParent(this.transform);

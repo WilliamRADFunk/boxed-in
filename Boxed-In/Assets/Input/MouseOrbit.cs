@@ -8,6 +8,10 @@ public class MouseOrbit : MonoBehaviour {
     public Transform target;
     public float xSpeed = 12.0f;
     public float ySpeed = 12.0f;
+
+    public float yMinLimit = -20f;
+    public float yMaxLimit = 80f;
+
     public float scrollSpeed = 10.0f;
     public float zoomMin = 1.0f;
     public float zoomMax = 20.0f;
@@ -37,6 +41,7 @@ public class MouseOrbit : MonoBehaviour {
             //  get the distance the mouse moved in the respective direction
             x += Input.GetAxis("Mouse X") * xSpeed;
             y -= Input.GetAxis("Mouse Y") * ySpeed;
+            y = ClampAngle(y, yMinLimit, yMaxLimit);
             // when mouse moves left and right we actually rotate around local y axis	
             transform.RotateAround(target.position, transform.up, x);
             // when mouse moves up and down we actually rotate around the local x axis	
@@ -58,6 +63,14 @@ public class MouseOrbit : MonoBehaviour {
                 transform.position = position;
             }
         }
+    }
+
+    public static float ClampAngle(float angle, float min, float max) {
+        if (angle < -360F)
+            angle += 360F;
+        if (angle > 360F)
+            angle -= 360F;
+        return Mathf.Clamp(angle, min, max);
     }
 
     public static float ZoomLimit(float dist, float min, float max) {
