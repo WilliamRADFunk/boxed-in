@@ -4,13 +4,14 @@ using System.Collections.Generic;
 public class Node : MonoBehaviour {
 
     private List<BigBrother> observer = new List<BigBrother>();
+    private List<Node> connectedNeighbors = new List<Node>();
     private bool used = false;
     private bool connected = false;
 
     public int scale = 1;
     private int state = 0;
-    public Material normal;
-    public Material selected;
+    public Material normalMat;
+    public Material selectedMat;
 
 
     public bool isUsed() { return used; }
@@ -28,10 +29,15 @@ public class Node : MonoBehaviour {
     public void addBigBorther(BigBrother b) {
         observer.Add(b);
     }
+    public void addConnectedNeighbors(Node n) {
+        connectedNeighbors.Add(n);
+    }
+    public List<Node> getConnectedNeighbors() {
+        return connectedNeighbors;
+    }
 
     public bool isNodeSelected() {
         return false;
     }
 
-    
 }
