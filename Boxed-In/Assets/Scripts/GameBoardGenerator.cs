@@ -13,6 +13,7 @@ public class GameBoardGenerator : MonoBehaviour {
 
     public void Awake() {
         populateGraph_Nodes();
+        populateGraph_BigBrother();
     }
 
     public List<Node> getNodes() { return nodes; }
@@ -20,26 +21,33 @@ public class GameBoardGenerator : MonoBehaviour {
 
     private void populateGraph_Nodes() {
         for (int i = (int)-(boardSize / 2); i < (int)(boardSize / 2); i++) {
-            for (int j = (int)-(boardSize / 2); j < (int)(boardSize / 2); j++) {
-              
+            for (int j = (int)-(boardSize / 2); j < (int)(boardSize / 2); j++) { 
                 for (int k = (int)-(boardSize / 2); k < (int)(boardSize / 2); k++) {
                     GameObject go = (GameObject)Instantiate(node, new Vector3(i * space, j * space, k * space), Quaternion.identity);
                     go.transform.SetParent(this.transform);
                     go.name = "node";
                     Node n = go.GetComponent<Node>();
                     nodes.Add(n);
-                    if( i == (int)(boardSize / 2) - 1 || 
-                        j == (int)(boardSize / 2) - 1 ||
-                        k == (int)(boardSize / 2) - 1) { }
-                    else {
-                        GameObject bb = (GameObject)Instantiate(test, new Vector3(i * space + space / 2, j * space + space / 2, k * space + space / 2), Quaternion.identity);
-                        bb.transform.SetParent(this.transform);
-                        bb.name = "test";
-                    }
-                   
                 }
             }
         }
     }
 
+
+    private void populateGraph_BigBrother() {
+        for (int i = (int)-(boardSize / 2); i < (int)(boardSize / 2); i++) {
+            for (int j = (int)-(boardSize / 2); j < (int)(boardSize / 2); j++) {
+                for (int k = (int)-(boardSize / 2); k < (int)(boardSize / 2); k++) {
+                    if (i == (int)(boardSize / 2) - 1 ||
+                        j == (int)(boardSize / 2) - 1 ||
+                        k == (int)(boardSize / 2) - 1) { }
+                    else {
+                        GameObject bb = (GameObject)Instantiate(test, new Vector3(i * space + space / 2, j * space + space / 2, k * space + space / 2), Quaternion.identity);
+                        bb.transform.SetParent(this.transform);
+                        bb.name = "BigBrother";
+                    }
+                }
+            }
+        }
+    }
 }
