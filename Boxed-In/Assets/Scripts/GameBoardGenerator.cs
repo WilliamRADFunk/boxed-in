@@ -6,7 +6,9 @@ public class GameBoardGenerator : MonoBehaviour
 
     public int boardSize = 4;
     public int space = 2;
+    private int bounds;
     private float skew;
+    private bool even;
     public GameObject node;
     public GameObject test;
 
@@ -15,14 +17,18 @@ public class GameBoardGenerator : MonoBehaviour
 
     public void Awake()
     {
+        skew = space / 2;
         if (boardSize % 2 == 0)
         {
-            skew = space / 2;
+            even = true;
+            
         }
         else
         {
-            skew = 0f;
+            even = false;
         }
+        bounds = Mathf.FloorToInt(boardSize / 2);
+        Debug.Log(bounds);
         populateGraph_Nodes();
         populateGraph_BigBrother();
     }
@@ -33,18 +39,39 @@ public class GameBoardGenerator : MonoBehaviour
     private void populateGraph_Nodes()
     {
 
-        for (int i = (int)-(boardSize / 2); i < (int)(boardSize / 2); i++)
+        if(even)
         {
-            for (int j = (int)-(boardSize / 2); j < (int)(boardSize / 2); j++)
+            for (int i = (int)-bounds; i < bounds; i++)
             {
-                for (int k = (int)-(boardSize / 2); k < (int)(boardSize / 2); k++)
+                for (int j = (int)-bounds; j < bounds; j++)
                 {
-                    GameObject go = (GameObject)Instantiate(node, new Vector3(i * space + skew, j * space + skew, k * space + skew), Quaternion.identity);
-                    Debug.Log(i + " " + j + " " + k);
-                    go.transform.SetParent(this.transform);
-                    go.name = "node";
-                    Node n = go.GetComponent<Node>();
-                    nodes.Add(n);
+                    for (int k = (int)-bounds; k < bounds; k++)
+                    {
+                        GameObject go = (GameObject)Instantiate(node, new Vector3(i * space + skew, j * space + skew, k * space + skew), Quaternion.identity);
+                        Debug.Log(i + " " + j + " " + k);
+                        go.transform.SetParent(this.transform);
+                        go.name = "node";
+                        Node n = go.GetComponent<Node>();
+                        nodes.Add(n);
+                    }
+                }
+            }
+        }
+        else
+        {
+            for (int i = (int)-bounds; i < bounds + 1; i++)
+            {
+                for (int j = (int)-bounds; j < bounds + 1; j++)
+                {
+                    for (int k = (int)-bounds; k < bounds + 1; k++)
+                    {
+                        GameObject go = (GameObject)Instantiate(node, new Vector3(i * space, j * space, k * space), Quaternion.identity);
+                        Debug.Log(i + " " + j + " " + k);
+                        go.transform.SetParent(this.transform);
+                        go.name = "node";
+                        Node n = go.GetComponent<Node>();
+                        nodes.Add(n);
+                    }
                 }
             }
         }
@@ -53,21 +80,47 @@ public class GameBoardGenerator : MonoBehaviour
 
     private void populateGraph_BigBrother()
     {
-        for (int i = (int)-(boardSize / 2); i < (int)(boardSize / 2); i++)
+        if(even)
         {
-            for (int j = (int)-(boardSize / 2); j < (int)(boardSize / 2); j++)
+
+            for (int i = (int)-bounds; i < bounds; i++)
             {
-                for (int k = (int)-(boardSize / 2); k < (int)(boardSize / 2); k++)
+                for (int j = (int)-bounds; j < bounds; j++)
                 {
-                    if (i == (int)(boardSize / 2) - 1 ||
-                        j == (int)(boardSize / 2) - 1 ||
-                        k == (int)(boardSize / 2) - 1)
-                    { }
-                    else
+                    for (int k = (int)-bounds; k < bounds; k++)
                     {
-                        GameObject bb = (GameObject)Instantiate(test, new Vector3(i * space + (2 * skew), j * space + (2 * skew), k * space + (2 * skew)), Quaternion.identity);
-                        bb.transform.SetParent(this.transform);
-                        bb.name = "BigBrother";
+                        if (i == bounds - 1 ||
+                            j == bounds - 1 ||
+                            k == bounds - 1)
+                        { }
+                        else
+                        {
+                            GameObject bb = (GameObject)Instantiate(test, new Vector3(i * space + (2 * skew), j * space + (2 * skew), k * space + (2 * skew)), Quaternion.identity);
+                            bb.transform.SetParent(this.transform);
+                            bb.name = "BigBrother";
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            for (int i = (int)-bounds; i < bounds + 1; i++)
+            {
+                for (int j = (int)-bounds; j < bounds + 1; j++)
+                {
+                    for (int k = (int)-bounds; k < bounds + 1; k++)
+                    {
+                        if (i == bounds ||
+                            j == bounds ||
+                            k == bounds )
+                        { }
+                        else
+                        {
+                            GameObject bb = (GameObject)Instantiate(test, new Vector3(i * space + skew, j * space + skew, k * space + skew), Quaternion.identity);
+                            bb.transform.SetParent(this.transform);
+                            bb.name = "BigBrother";
+                        }
                     }
                 }
             }
